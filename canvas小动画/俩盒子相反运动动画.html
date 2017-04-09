@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        canvas{
+            background: #ccc;
+        }
+    </style>
+</head>
+<body>
+<canvas width="600px" height="600px"></canvas>
+</body>
+<script>
+    //以对象的思想来实现操作画出的图形   来进行动画
+    var canvas=document.querySelector("canvas");
+    var cobj=canvas.getContext('2d');
+    function rect() {
+        this.x=0;
+        this.y=0;
+        this.w=100;
+        this.h=100;
+        this.speedx=5;
+        this.speedy=5;
+    }
+    rect.prototype={
+        draw:function (){
+            cobj.save();            //保存状态（将2d对象的状态保存）
+            cobj.translate(this.x,this.y);
+            //颜色随机
+            cobj.fillStyle="rgb("+parseInt(Math.random()*255)+","+parseInt(Math.random()*255)+","+parseInt(Math.random()*255)+")";
+
+            cobj.fillRect(0,0,this.w,this.h);
+            cobj.restore();        //还原状态（将保存的2d对象的状态放回原来位置）
+        },
+        update:function () {
+            this.x+=this.speedx;
+            this.y+=this.speedy;
+        }
+    };
+    var rect1=new rect();
+    var rect2=new rect();
+    rect2.speedx=-5;
+    rect2.speedy=-5;
+    rect2.x=500;
+    rect2.y=500;
+    var t=setInterval(function() {
+        cobj.clearRect(0, 0, canvas.width, canvas.height);
+        rect1.draw();
+        rect1.update();
+        rect2.draw();
+        rect2.update();
+    },50);
+
+</script>
+</html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Canvas</title>
+</head>
+<style>
+    canvas{
+        background: #ccc;
+        /*width: 600px;height: 300px;  !*此处设置相当于放大镜*!*/
+    }
+
+</style>
+<body>
+<img src="4.jpg" alt="" hidden>
+  <canvas width="700" height="600">
+      识别不识别
+  </canvas>
+</body>
+<script>
+    window.onload=function () {
+        var canvas=document.getElementsByTagName("canvas学习")[0];
+        var cobj=canvas.getContext("2d");
+
+//填充
+        /*
+        cobj.fillStyle="red";             //要在绘制之前定样式  填充的颜色
+        cobj.strokeStyle="green";         //要在绘制之前定样式 边框的颜色
+        cobj.fillRect(0,0,100,100);            //位图   绘制填充过的矩形
+        cobj.strokeRect(0,0,100,100)          //绘制一个边框矩形
+
+        cobj.shadowColor="#000";              //填充阴影
+        cobj.shadowBlur=10;
+        cobj.shadowOffsetX=10;
+        cobj.shadowOffsetY=10;
+        */
+
+        var colorobj=cobj.createLinearGradient(0,0,100,100);      //填充线性渐变
+         colorobj.addColorStop(0,"red");
+         colorobj.addColorStop(0.5,"green");
+         colorobj.addColorStop(1,"blue");
+                          //关注的是2d对象 是给那个2d对象设置的渐变 可不是那个绘制的矩形
+         cobj.fillStyle=colorobj;
+         cobj.fillRect(20,20,100,100);
+
+        /*
+        var colorobj=cobj.createRadialGradient(50,50,10,50,50,50);      //填充径向渐变
+        colorobj.addColorStop(0,"red");
+        colorobj.addColorStop(0.5,"green");
+        colorobj.addColorStop(1,"blue");
+        //关注的是2d对象 是给那个2d对象设置的渐变 可不是那个绘制的矩形
+        cobj.fillStyle=colorobj;
+        cobj.fillRect(0,0,100,100);     
+         */
+        /*
+         var imgobj=document.querySelector("图形验证码");            //放置图形
+         var obj=cobj.createPattern(imgobj,"no-repeat");
+          cobj.fillStyle=imgobj;
+          cobj.fillRect(0,0,100,100);
+         */
+        /*
+        cobj.strokeStyle="green";               //设置边框宽度
+        cobj.lineWidth=1;
+        cobj.strokeRect(0.5,0.5,200,100);
+       */
+       /*
+        cobj.strokeStyle="red";               //设置边框宽度
+        cobj.lineWidth=10;
+        cobj.strokeRect(5.5,5.5,100,100);
+        */
+
+       //相对于cobj.strokeRect(0,0,100,100)
+     /*
+        //canvas中
+        //要绘制独立的图形  指定开始的路径
+        // 除了fillRect strokeRect  所有图形的绘制 beginPath
+       cobj.beginPath();                    //绘制一个新图形是加beginPath计算机才知道是绘制新图形
+       cobj.rect(0,0,100,100);
+       cobj.stroke();
+
+     function strokeRect(x,y,w,h){
+         cobj.beginPath();
+         cobj.rect(x+0.5,y+0.5,w,h);
+         cobj.stroke();
+     }
+     */
+////划线
+//        cobj.beginPath();
+//        cobj.moveTo(0,0);
+//        cobj.lineTo(100,100);
+//        cobj.lineTo(200,100);
+//        cobj.lineTo(300,0);
+//        cobj.lineTo(400,100);
+//        cobj.stroke();
+
+//        cobj.beginPath();                //正方形
+//        cobj.rect(200,200,100,100);
+//        cobj.stroke();
+     function rect(x,y,w,h) {
+         cobj.beginPath();
+         cobj.moveTo(x,y);
+         cobj.lineTo(x+w,y);
+         cobj.lineTo(x+w,y+h);
+//         cobj.lineTo(x,y+h);       //去掉就是三角形
+         cobj.closePath();     //cobj.lineTo(x,y); 对比二者之间的区别
+         cobj.stroke();
+     }
+     rect(200,100,100,100);                 //独立的并且封闭的图形
+
+     //擦除
+//        cobj.clearRect(100,100,10,10);
+
+//     做一个鼠标划线功能
+
+// 获得图像信息
+        var data=cobj.getImageData(0,0,100,100);   //获得指定位置的图像
+        cobj.putImageData(0,0,200,200);     //将获得的图像放到指定的位置
+//画圆
+        cobj.arc();
+
+
+
+
+
+
+
+    }
+</script>
+</html>
